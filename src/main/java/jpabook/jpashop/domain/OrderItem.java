@@ -50,6 +50,6 @@ public class OrderItem {
      * 주문 상품 가격 조회
      */
     public int getTotalPrice() {
-        return getOrderPrice() + getCount();
+        return getOrderPrice() * getCount();
     }
 }
