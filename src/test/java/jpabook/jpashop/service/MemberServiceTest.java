@@ -32,7 +32,6 @@ public class MemberServiceTest {
 
         // then
         assertEquals(member, memberRepository.findOne(saveId));
-
     }
 
     @Test(expected = IllegalStateException.class)
