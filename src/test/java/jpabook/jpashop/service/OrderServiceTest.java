@@ -7,6 +7,7 @@ import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.exception.NotEnoughStockException;
+import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +29,7 @@ public class OrderServiceTest {
 
     @Autowired EntityManager em;
     @Autowired OrderService orderService;
-    @Autowired
-    OrderSimpleQueryDto orderRepository;
+    @Autowired OrderRepository orderRepository;
 
     @Test
     public void 상품주문() throws Exception{

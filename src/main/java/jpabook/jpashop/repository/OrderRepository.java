@@ -102,4 +102,44 @@ public class OrderRepository {
     }
 
 
+    public List<Order> findAllWithItem() {
+        /**
+         * distinct 역활
+         * 1. DB에서 distnct 를 날려준다.
+         * 2. Root Entity(order) 가 중복인 경우, 애플리케이션에서 걸러서 collection에 담는다.
+         *
+         * 컬렉션 페치조인을 사용시 단점 : 페이징이 안됨
+         * (= 정확히는 DB에서 페이징 처리를 안하고, 다 가져온다음에 애플리케이션에서 페이징처리를 한다.)
+         *
+         * 컬렉션 페치 조인은 1개만 사용할 수 있다. 데이터가 부정합하게 조회될 수 있다.
+         */
+        /*return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch  o.member m " +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi " +
+                        " join fetch oi.item i", Order.class
+                ).setFirstResult(0)
+                .setMaxResults(100)
+                .getResultList();
+        */
+
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch  o.member m " +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi " +
+                        " join fetch oi.item i", Order.class
+                ).getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o " +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
