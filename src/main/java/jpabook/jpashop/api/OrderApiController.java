@@ -10,6 +10,7 @@ import jpabook.jpashop.repository.order.query.OrderFlatDto;
 import jpabook.jpashop.repository.order.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryDto;
 import jpabook.jpashop.repository.order.query.OrderQueryRepository;
+import jpabook.jpashop.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +65,17 @@ public class OrderApiController {
                 .collect(toList());
 
         return result;
+    }
+
+    /**
+     * Open Session In View 옵션을 끈 경우, 다음과 같이
+     * Trancation 안으로 지연로딩 코드를 넣어야 한다!!!
+     */
+    private final OrderQueryService orderQueryService;
+
+    @GetMapping("/api/v3/orders")
+    public List<jpabook.jpashop.service.query.OrderDto> ordersV3_OSIV_OFF() {
+        return orderQueryService.ordersV3();
     }
 
     @GetMapping("/api/v3.1/orders")
